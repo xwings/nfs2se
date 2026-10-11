@@ -1,0 +1,50 @@
+nfs2se-web
+==========
+
+This project ports NFSIISE to WebAssembly and WebGL2.
+
+Upstream
+--------
+NFSIISE by zaps166 (Błażej Szczygieł) - https://github.com/zaps166/NFSIISE
+Its wrapper source code is MIT licensed (third_party/NFSIISE/LICENSE). The
+browser platform layer in src/platform/ re-implements the behaviour of the
+upstream wrapper (Kernel32.c, User32.c, DInput.c, EAcsnd.c, Timer.c,
+Wrapper.c, FetchTrackRecords.c, Glide2x.c, Glide2x/OpenGL2.c) for the web.
+
+The translated game code (third_party/NFSIISE/src/Cpp, a git submodule) is
+not covered by the upstream MIT license; per the upstream README the license
+applies to the wrapper source code only. This repository does not vendor it;
+it is fetched as a submodule and compiled at build time.
+
+The build copies install.win, text.* and nfs2se.conf.template from
+third_party/NFSIISE/"Need For Speed II SE" into dist/files/.
+
+So dist/ holds material that neither this project's license (LICENSE) nor the
+upstream MIT license covers: the compiled translated game in dist/nfs2se.wasm
+and the upstream support files in dist/files/. Whoever distributes dist/
+distributes them too.
+
+Other components
+----------------
+The build output (dist/nfs2se.js, dist/nfs2se.wasm) contains the Emscripten
+runtime (MIT or University of Illinois/NCSA) and code from the system
+libraries it links: musl libc (MIT), the compiler-rt builtins (Apache-2.0
+WITH LLVM-exception, with legacy University of Illinois/NCSA or MIT terms)
+and dlmalloc (public domain, CC0). The build copies their licence texts next
+to dist/LICENSE and dist/NOTICE: Emscripten's LICENSE to
+dist/LICENSE.emscripten, musl's COPYRIGHT to dist/LICENSE.musl and
+compiler-rt's LICENSE.TXT to dist/LICENSE.compiler-rt.
+
+@playwright/test and the playwright and playwright-core packages it installs
+(Apache-2.0) are development dependencies used only by the browser tests, as
+is the Chromium build Playwright downloads to run them; none is part of dist/.
+
+The development server (tools/serve.mjs) and the cross-origin isolation
+service worker (src/web/coi-sw.js) are original code of this project.
+
+Game data
+---------
+Need For Speed II SE is a trademark of Electronic Arts. Neither this
+repository nor dist/ includes the game data. Players import the fedata/ and
+gamedata/ directories from their own Need For Speed II Special Edition CD;
+the data stays in the browser's IndexedDB on their machine.

@@ -1,0 +1,268 @@
+:root {
+	--bg: #0b0d12;
+	--panel: #151922;
+	--line: #2a3140;
+	--text: #e6e9ef;
+	--muted: #9aa3b5;
+	--accent: #f2b233;
+	--accent-text: #1a1406;
+	--error: #ff7a6b;
+	font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	color: var(--text);
+	background: var(--bg);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+html, body {
+	margin: 0;
+	height: 100%;
+}
+
+body {
+	background: radial-gradient(ellipse at top, #1c2333 0%, var(--bg) 60%) fixed;
+}
+
+h1, h2 {
+	line-height: 1.2;
+	margin: 0 0 0.5rem;
+}
+
+h1 {
+	font-size: 2.2rem;
+	letter-spacing: 0.02em;
+}
+
+h2 {
+	font-size: 1.15rem;
+}
+
+code {
+	font-size: 0.9em;
+	color: var(--accent);
+}
+
+button, .button {
+	display: inline-block;
+	font: inherit;
+	color: var(--text);
+	background: #222937;
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	padding: 0.45rem 1rem;
+	cursor: pointer;
+}
+
+button:hover, .button:hover {
+	border-color: var(--muted);
+}
+
+button:disabled, .button:has(input:disabled) {
+	opacity: 0.5;
+	cursor: default;
+}
+
+button.primary {
+	color: var(--accent-text);
+	background: var(--accent);
+	border-color: var(--accent);
+	font-weight: 600;
+}
+
+.button input[type="file"] {
+	display: none;
+}
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 0.75rem 0;
+}
+
+#launcher {
+	max-width: 44rem;
+	margin: 0 auto;
+	padding: 3rem 1.5rem;
+}
+
+.tagline, .hint, details {
+	color: var(--muted);
+}
+
+#files {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 1rem 1.25rem;
+	margin: 1.5rem 0 0.5rem;
+}
+
+#files.ready #files-status {
+	color: #8fd694;
+}
+
+#drop-zone {
+	border: 2px dashed var(--line);
+	border-radius: 8px;
+	padding: 0.25rem 1rem;
+	margin-top: 0.75rem;
+}
+
+#drop-zone.dragging {
+	border-color: var(--accent);
+	background: #f2b2330f;
+}
+
+.hint {
+	font-size: 0.875rem;
+}
+
+#progress {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-top: 0.75rem;
+}
+
+#progress-bar {
+	flex: none;
+	width: 12rem;
+}
+
+#progress-label {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 0.875rem;
+	color: var(--muted);
+}
+
+#message {
+	min-height: 1.5em;
+}
+
+#message.error,
+#ended-warning {
+	color: var(--error);
+}
+
+details {
+	margin-top: 1.5rem;
+}
+
+/* The game: a full-window canvas; the game draws its own cursor. */
+
+#screen, #toolbar, #fps {
+	display: none;
+}
+
+body.playing {
+	overflow: hidden;
+	background: #000;
+}
+
+body.playing #launcher {
+	display: none;
+}
+
+body.playing #screen {
+	display: block;
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	cursor: none;
+	touch-action: none;
+}
+
+body.playing #toolbar {
+	display: flex;
+	gap: 0.5rem;
+	position: fixed;
+	top: 0.75rem;
+	right: 0.75rem;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s;
+}
+
+body.playing #toolbar.visible {
+	opacity: 0.9;
+	pointer-events: auto;
+}
+
+body.playing #fps {
+	display: block;
+	position: fixed;
+	top: 0.5rem;
+	left: 0.75rem;
+	font: 600 0.875rem/1 ui-monospace, monospace;
+	color: #fff;
+	text-shadow: 0 0 3px #000, 0 0 3px #000;
+	pointer-events: none;
+}
+
+dialog {
+	color: var(--text);
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 1.25rem 1.5rem;
+	max-width: min(32rem, 90vw);
+}
+
+dialog::backdrop {
+	background: #000a;
+}
+
+fieldset {
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	margin: 0 0 1rem;
+	padding: 0.5rem 1rem 0.75rem;
+}
+
+fieldset label {
+	display: block;
+	margin: 0.35rem 0;
+}
+
+label.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+select, input[type="range"] {
+	font: inherit;
+	accent-color: var(--accent);
+}
+
+input[type="checkbox"] {
+	accent-color: var(--accent);
+}
+
+#message-box-text {
+	white-space: pre-wrap;
+}
+
+#ended {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	background: #000c;
+	font-size: 1.1rem;
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark">
+	<title>Need for Speed II SE</title>
+	<link rel="stylesheet" href="style.css">
+	<script type="module" src="main.js"></script>
+</head>
+<body>
+	<canvas id="screen" tabindex="-1" aria-label="Game screen"></canvas>
+	<div id="toolbar" role="toolbar" aria-label="Game">
+		<button id="toolbar-settings" type="button" title="Settings">Settings</button>
+		<button id="toolbar-fullscreen" type="button" title="Fullscreen (Alt+Enter)">Fullscreen</button>
+	</div>
+	<output id="fps" hidden></output>
+
+	<main id="launcher">
+		<h1>Need for Speed II SE</h1>
+		<p class="tagline">The 1997 racer running natively in the browser: WebAssembly with a WebGL2 renderer.</p>
+
+		<section id="files" aria-labelledby="files-title">
+			<h2 id="files-title">Game files</h2>
+			<p id="files-status">Looking for imported game files…</p>
+			<div id="drop-zone">
+				<p>Import your own copy of the game: the installed game folder, a CD image (ISO or BIN) or a ZIP archive with its <code>FEDATA</code> and <code>GAMEDATA</code> folders. Drop it here or choose it.</p>
+				<div class="buttons">
+					<label class="button">Choose folder…<input id="pick-folder" type="file" webkitdirectory></label>
+					<label class="button">Choose CD image or ZIP…<input id="pick-archive" type="file" accept=".iso,.bin,.img,.mdf,.zip"></label>
+				</div>
+				<p class="hint">The files stay on this computer, in this browser's storage. Import them once; they are kept for the next visit.</p>
+			</div>
+			<div id="progress" hidden>
+				<progress id="progress-bar"></progress>
+				<span id="progress-label"></span>
+			</div>
+		</section>
+
+		<p id="message" role="status" aria-live="polite"></p>
+
+		<div class="buttons">
+			<button id="play" class="primary" type="button" disabled>Play</button>
+			<button id="settings-open" type="button">Settings</button>
+			<button id="remove-files" type="button" hidden>Remove game files</button>
+		</div>
+
+		<details>
+			<summary>Controls and notes</summary>
+			<ul>
+				<li>Keyboard and gamepads work as in the original game; change the controls in the game's options.</li>
+				<li>Alt+Enter or the Fullscreen button switches to fullscreen. Move the mouse to show the buttons while playing.</li>
+				<li>Saved games, records and game settings are kept in this browser.</li>
+				<li>Network play is not available in the browser.</li>
+			</ul>
+		</details>
+	</main>
+
+	<dialog id="settings-dialog" aria-labelledby="settings-title">
+		<form id="settings-form" method="dialog">
+			<h2 id="settings-title">Settings</h2>
+			<fieldset>
+				<legend>Graphics</legend>
+				<label class="row">Rendering resolution
+					<select name="resolution">
+						<option value="native">Display resolution</option>
+						<option value="original">Original (640 × 480)</option>
+						<option value="half">Half display resolution</option>
+					</select>
+				</label>
+				<label><input type="checkbox" name="antialias"> Anti-aliasing</label>
+				<label><input type="checkbox" name="smoothTextures"> Smooth textures (filtering and mipmaps)</label>
+				<label><input type="checkbox" name="bloom"> Bloom</label>
+				<label><input type="checkbox" name="sharpen"> Sharpening</label>
+				<label><input type="checkbox" name="enhancedColors"> Enhanced colours</label>
+				<label><input type="checkbox" name="keepAspect"> Keep the 4:3 picture shape</label>
+				<label><input type="checkbox" name="showFps"> Show the frame rate</label>
+			</fieldset>
+			<fieldset>
+				<legend>Sound</legend>
+				<label class="row">Volume <input type="range" name="volume" min="0" max="1" step="0.05"></label>
+			</fieldset>
+			<div class="buttons">
+				<button class="primary" value="close">Close</button>
+			</div>
+		</form>
+	</dialog>
+
+	<dialog id="message-box" aria-labelledby="message-box-caption">
+		<form method="dialog">
+			<h2 id="message-box-caption"></h2>
+			<p id="message-box-text"></p>
+			<div class="buttons">
+				<button class="primary" value="ok" autofocus>OK</button>
+				<button id="message-box-cancel" value="cancel">Cancel</button>
+			</div>
+		</form>
+	</dialog>
+
+	<div id="ended" hidden>
+		<p id="ended-text"></p>
+		<p id="ended-warning" role="alert" hidden></p>
+		<button id="reload" class="primary" type="button">Back to the start screen</button>
+	</div>
+</body>
+</html>

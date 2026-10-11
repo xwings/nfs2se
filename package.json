@@ -1,0 +1,16 @@
+{
+  "name": "nfs2se-web",
+  "private": true,
+  "type": "module",
+  "description": "Need for Speed II SE in the browser: the NFSIISE translation built for WebAssembly with a WebGL2 renderer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0"
+  }
+}
