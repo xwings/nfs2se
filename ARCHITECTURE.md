@@ -49,7 +49,7 @@ A browser port of the NFSIISE C++ translation of Need for Speed II SE. The trans
 | `src/web/index.html`, `style.css` | HTML, CSS | none |
 
 - **Declared support:** `package.json` requires Node `>=20`. Its only dependency is the dev-only `@playwright/test` `^1.64.0`; the lockfile resolves 1.64.0. No Emscripten or make version is pinned, and there is no CI configuration.
-- **Observed locally on 2026-10-11:** emcc 6.0.12, Node v20.19.2, Playwright 1.64.0, GNU make. Python 3.13.5 is used only by the doc size check.
+- **Observed locally on 2026-10-11:** emcc 6.0.12, Node v20.19.2, Playwright 1.64.0, GNU make. Python 3.13.5 runs `emsdk`, `emcc` and the doc size check.
 - **Link settings:** `Makefile:42`, with reasons in the comments above it and in [build and test](ARCHITECTURE/build-and-test.md). They include `PROXY_TO_PTHREAD`, `INVOKE_RUN=0`, `EXIT_RUNTIME=1`, `MODULARIZE`/`EXPORT_ES6` (`createNfs2se`) and `-lidbfs.js`. `-Wl,--fatal-warnings` turns an import with a mismatched signature into a link error instead of a trapping stub (`Makefile:34`).
 
 ## System Design

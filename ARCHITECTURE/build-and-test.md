@@ -143,7 +143,7 @@ No CI runs these. Only Chromium is tested (`playwright.config.mjs:14`–`:15`), 
 
 **Prerequisites** (run everything from the repository root):
 - `git submodule update --init --recursive`: the game source is the nested submodule `src/Cpp` (`third_party/NFSIISE/.gitmodules:4`).
-- Every target except `test-unit` and `clean` compiles: first `source <emsdk>/emsdk_env.sh`, where `<emsdk>` is the emsdk checkout; it puts `emcc`, `em++` and `em-config` on `PATH` (observed emcc 6.0.12).
+- Every target except `test-unit` and `clean` compiles: first `source <emsdk>/emsdk_env.sh`, where `<emsdk>` is the emsdk checkout; it puts `emcc`, `em++` and `em-config` on `PATH` (observed emcc 6.0.12). `emsdk` and these tools run on Python 3 (observed 3.13.5).
 - Node 20 or later (`package.json:8`; observed v20.19.2).
 - Browser tests: `npm ci`, then `npx playwright install chromium`.
 
@@ -212,9 +212,10 @@ No CI runs these. Only Chromium is tested (`playwright.config.mjs:14`–`:15`), 
 | Unit test or spec added | The glob (`Makefile:122`) or `testDir` (`playwright.config.mjs:7`) finds it |
 | Flags changed | Run `make clean`. Keep `--fatal-warnings` and the runtime methods `main.js` uses |
 | `tools/serve.mjs` changed | Keep the headers on every response, the loopback binding and the root check; run `node --test tests/unit/serve.test.mjs` and the curl checks |
-| COOP or COEP value changed | Change the server, the service worker and the test copy together ([above](#development-server)) |
+| COOP or COEP value changed | Change the server, the service worker and the test copy together ([above](#development-server)), and the values in `README.md` |
 | Component added to `dist/`, or a library new to the link | List it and its licence in `NOTICE`; a licence file it requires gets a copy rule like `Makefile:80` and a place in `NOTICE_FILES` (`:25`) |
 | Port changed | Edit only `playwright.config.mjs:4`; specs use relative URLs |
+| Prerequisites, `make` targets, the `PORT` default (`Makefile:14`), the observed toolchain versions or the tested browsers changed | Update the matching text in `README.md` |
 
 **Forbidden:** writing into `third_party/NFSIISE`; upstream files outside `dist/files/`; game data in tests; `test` straight from `@playwright/test`; one shared definition of the isolation headers.
 

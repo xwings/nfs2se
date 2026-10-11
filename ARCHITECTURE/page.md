@@ -200,13 +200,14 @@ The fixture fails a test on any uncaught page error (`helpers.mjs:24`). Game fil
 | New upstream support file | `SUPPORT_FILES` (`Makefile:23`); the page reads the manifest | `game.spec.mjs:41` |
 | New hook from C | `createNfs2se` options (`main.js:414`), plus [platform](platform.md) | Justify it against [System Design](../ARCHITECTURE.md#system-design) |
 | Launcher ids or text | `index.html`, `main.js` | `launcher.spec.mjs`, `game.spec.mjs`; `helpers.mjs:46`, `:53` expect launcher text |
+| Launcher buttons, settings, the toolbar or kept data, as players see them | Also `README.md` | No test reads it; compare it with `index.html` |
 | Player-facing error text | `main.js` | `game.spec.mjs:58`, `:68`, `:90` compare it exactly |
 | Persistence | `persist`, `showSaveError`, `SAVE_DIR` | `game.spec.mjs:41`, `:68`; never rename `SAVE_DIR` |
 | Play ordering or failure | `play` | `game.spec.mjs:41`, `:58`; the audio context stays in the click |
-| Isolation headers | `tools/serve.mjs:22`, `coi-sw.js:17`, `ISOLATION_HEADERS` (`helpers.mjs:18`) | `serve.test.mjs:34`, `launcher.spec.mjs:11` |
+| Isolation headers | `tools/serve.mjs:22`, `coi-sw.js:17`, `ISOLATION_HEADERS` (`helpers.mjs:18`), `README.md` | `serve.test.mjs:34`, `launcher.spec.mjs:11` |
 
 - **Reuse:** the local patterns in [Language and Conventions](#language-and-conventions), `fetchFile` for files next to the page (`main.js:120`) and the `syncfs` wrapper (`main.js:115`).
-- **Duplicated values:** the COOP/COEP values are written in `tools/serve.mjs:23`–`:24` (a Node tool outside `dist/`), `coi-sw.js:17`–`:18` (a service worker registered as a classic script, `main.js:79`) and `ISOLATION_HEADERS` (`tests/e2e/helpers.mjs:18`–`:21`, the headers of `openBlankPage`); `serve.test.mjs:42`–`:43` asserts them. Change them together.
+- **Duplicated values:** the COOP/COEP values are written in `tools/serve.mjs:23`–`:24` (a Node tool outside `dist/`), `coi-sw.js:17`–`:18` (a service worker registered as a classic script, `main.js:79`) and `ISOLATION_HEADERS` (`tests/e2e/helpers.mjs:18`–`:21`, the headers of `openBlankPage`); `serve.test.mjs:42`–`:43` asserts them, and `README.md` repeats them for other servers. Change them together.
 - **Forbidden coupling:** game memory is read only through the shared regions; only `main.js` imports `nfs2se.js`; partners never touch `session`.
 
 **Proposals (not accepted):**

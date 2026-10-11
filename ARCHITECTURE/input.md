@@ -167,6 +167,7 @@ Prerequisites: as in the root's [Verification and Review Map](../ARCHITECTURE.md
 | Pointer or letterbox | `Input.pointer`, `fitViewport`, `Renderer.keepAspect` and `GetDeviceData` together | `input.test.mjs:299`; `input.spec.mjs:64`; `tests/unit/renderer.test.mjs:8`, `:16`; `tests/c/dinput_test.c:593` |
 | Joystick mapping or keys | `GetDeviceState`, `processAxes`, `Config` (`src/platform/platform.h:63`), `src/platform/config.c:70` | `make test-c` (`dinput`, `config`) |
 | When input is enabled | `updateInputEnabled` (`src/web/main.js:169`), `setEnabled` | `input.test.mjs:216`, `:258`, `:279` |
+| `BROWSER_KEYS`, Alt+Enter or force feedback, as players see them | Also `README.md` | No test reads it |
 
 - **Forbidden coupling:** `input.js` imports only `layout.js` and `fitViewport` (`src/web/input.js:4`–`:12`). Page logic stays in `main.js`, behind the constructor callbacks. C reads input only from shared words.
 - **Compatibility:** keep the Windows struct sizes, the vtable slot indices and the upstream `Joystick*` key names (`src/platform/config.c:70`–`:95`).

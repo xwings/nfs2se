@@ -168,6 +168,7 @@ Prerequisites: as in the root's [Verification and Review Map](../ARCHITECTURE.md
 | New texture format | A converter beside `texel_565` (`glide.c:227`), a case at `:690` | `glide_test.c:322` |
 | Scene or MSAA policy | `sceneConfig` (`renderer.js:270`) | `renderer.spec.mjs:319` |
 | New effect | `FINAL_FS` or a pass (`postfx.js:36`, `:138`), options in `present` (`renderer.js:548`), a setting ([page](page.md)) | `renderer.spec.mjs:319` |
+| Movies shown, or Glide state that has no effect yet | Also the known gaps in `README.md` | No test reads it |
 
 - **Reusable patterns:** the canonical helpers above; dirty bits in `flush`.
 - **Forbidden coupling:** the game thread never calls WebGL or JS. The renderer reads wasm memory only through the slots and the `CTL_CFG_*` words (`renderer.js:153`, `:292`). Each op replaces one piece of state (`web_layout.h:160`–`:162`), so never infer state from command order. `PostFx` knows nothing of Glide (`postfx.js:135`–`:137`).

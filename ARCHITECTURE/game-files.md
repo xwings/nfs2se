@@ -161,6 +161,7 @@ Run from the repository root:
 | Limits | `src/web/importer.js:20`; the game's real size | `tests/unit/importer.test.mjs:175`, `importer.test.mjs:243`, `importer.test.mjs:355` |
 | Selection rules | `selectGameFiles` (`src/web/importer.js:286`); platform mapping (`src/platform/config.c:201`, `config.c:229`) | `tests/unit/importer.test.mjs:328` to `importer.test.mjs:355`, `tests/e2e/launcher.spec.mjs:19`, `tests/e2e/game.spec.mjs:41` |
 | Storage schema or commit order | `src/web/storage.js:5`, `storage.js:27`, `storage.js:48`, `tests/e2e/helpers.mjs:57` | `tests/e2e/launcher.spec.mjs:28`, `launcher.spec.mjs:58`; existing imports must survive, or a re-import must be intended |
+| Import sources or kept folders, as players see them | Also `README.md` | No test reads it |
 | Messages or progress | `importFrom` (`src/web/main.js:91`) and the messages in `src/web/importer.js` | Exact texts in `tests/unit/importer.test.mjs:175` and `tests/e2e/launcher.spec.mjs:22`, `launcher.spec.mjs:64`, `launcher.spec.mjs:89` |
 
 - **Keep:** readers lazy; every offset and length from a file checked before use; `meta` written last and deleted first; a failed import cleared; `selectGameFiles` as the only gate to `/game`; the database, store and key names.
